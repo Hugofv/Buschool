@@ -1,0 +1,3 @@
+rootProject.name = 'Buschool'
+
+include ':app'
