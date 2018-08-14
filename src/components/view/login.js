@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import { Container, Header, Content, Form, Item, Input } from 'native-base';
-
+import { connect } from 'react-redux';
 
 type Props = {};
-export default class App extends Component<Props> {
+class Login extends Component<Props> {
   render() {
     return (
       <Container>
@@ -42,3 +42,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
