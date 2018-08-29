@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "575838173838",
+    "firebase_url": "https://comanda-69453.firebaseio.com",
+    "project_id": "comanda-69453",
+    "storage_bucket": "comanda-69453.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575838173838:android:2e753666a46bf5dd",
+        "android_client_info": {
+          "package_name": "com.buschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575838173838-p532h1piaf0p2d243iuih4jdq21kh1ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6yUrbp3MiZwHqDE3FPAELyyxFDxRyeq8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,6 +11,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN_START: {
+      console.log('aqui')
       return {
         ...state,
         isFetching: true,

@@ -5,7 +5,7 @@ const initialState = {
   isFetching: false,
   hasError: false,
   errorMessage: '',
-  user: null,
+  user: [],
 };
 
 export default (state = initialState, action) => {

@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import { Container, Header, Content, Form, Item, Input } from 'native-base';
 import { connect } from 'react-redux';
+import { loginStart } from '../../actions/user';
 
-type Props = {};
-class Login extends Component<Props> {
+class Login extends Component {
+
+  componentWillMount() {
+    console.log(this.props)
+  }
+
   render() {
     return (
       <Container>
@@ -43,8 +48,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+function mapStateToProps (state) {
+  return {
+    usuario: state.usuario
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, { loginStart })(Login);
