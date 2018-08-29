@@ -17,12 +17,17 @@ const loginError = error => ({
 });
 
 export const loginUser = (email, pass) => async (dispatch, getState) => {
-  dispatch(loginStart());
+  //dispatch(loginStart());
   try {
-    const response = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, pass);
-    console.log(response);
+    
+    await firebase
+      .database()
+      .ref('/usuarios')
+      .once('value', snap => {
+        console.log(snap.val());
+      })
+
+    //console.log(response);
     if (response.error) {
       throw new Error(response);
     }
