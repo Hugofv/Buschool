@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button } from 'native-base';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/user';
@@ -23,8 +23,8 @@ class Login extends Component {
             <Item last>
               <Input placeholder="Password" />
             </Item>
-            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
-            <Button onPress={() => Actions['menu'].call()} style={{width: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+            <Button onPress={() => Actions['menu'].call()} style={{width: '50%', alignItems: 'center', justifyContent: 'center'}}>
               <Text>Click Me!</Text>
             </Button>
             </View>
