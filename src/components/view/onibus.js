@@ -6,7 +6,7 @@ import { fetchAlunos } from '../../actions/aluno';
 import { Actions } from 'react-native-router-flux';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
-class Aluno extends Component {
+class Onibus extends Component {
 
   componentWillMount() {
     console.log('aqui');
@@ -22,42 +22,30 @@ class Aluno extends Component {
             <TouchableOpacity onPress={() => Actions['cadastro'].call()}>
                 <FontAwesome style={styles.button_return}>{Icons.angleLeft}</FontAwesome>
               </TouchableOpacity>
-
-              <Text style={styles.title}>Aluno</Text>
+              <Text style={styles.title}>Ônibus</Text>
               <Image style={styles.logo} source={require('./../../assets/img/bus.png')}/>
             </View>
-              <Form style={styles.formuario}>
+            <Form style={styles.formuario}>
                 <Item>
-                  <Input placeholder="Nome" style={{color:'#fff'}} />
+                    <Input placeholder="Marca/Modelo" style={{color:'#fff'}} />
                 </Item>
                 <Item>
-                  <Input placeholder="CPF" style={{color:'#fff'}}/>
+                    <Input placeholder="Quantidade de Lugares" style={{color:'#fff'}}/>
                 </Item>
                 <Item>
-                  <Input placeholder="RG" style={{color:'#fff'}}/>
+                    <Input placeholder="Número de Registro" style={{color:'#fff'}}/>
                 </Item>
                 <Item>
-                  <Input type="password" placeholder="Data de Nascimento" style={{color:'#fff'}}/>
+                    <Input placeholder="Ano" style={{color:'#fff'}}/>
                 </Item>
                 <Item>
-                  <Input placeholder="Nome Responsável" style={{color:'#fff'}}/>
+                    <Input placeholder="Observações" style={{color:'#fff'}}/>
                 </Item>
-                <Item>
-                  <Input placeholder="Telefone Responsável" style={{color:'#fff'}}/>
-                </Item>
-                <Item>
-                  <Input placeholder="Escola" style={{color:'#fff'}}/>
-                </Item>
-                <Item>
-                  <Input placeholder="Endereço/Região" style={{color:'#fff'}}/>
-                </Item>
-                <Item>
-                  <Input placeholder="Observações" style={{color:'#fff'}}/>
-                </Item>
+            
                 <Button last onPress={() => Actions['cadastro'].call()} style={styles.button}>
                     <Text style={styles.button_text}>Salvar</Text>
                 </Button>
-              </Form>
+            </Form> 
 
         </View>
       </Container>
@@ -130,4 +118,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAlunos })(Aluno);
+export default connect(mapStateToProps, { fetchAlunos })(Onibus);

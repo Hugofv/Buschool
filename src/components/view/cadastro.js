@@ -16,30 +16,37 @@ class Cadastro extends Component {
     return (
       <Container style={styles.container}>
         <View style={{flex: 1, flexDirection: 'column'}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-              <Text style={{color: '#fff'}}>Cadastro</Text>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>              
+              <Text style={styles.title}>Cadastro</Text>
               <Image style={styles.logo} source={require('./../../assets/img/bus.png')}/>
             </View>
             
             <View style={styles.box_button}>
-              <TouchableOpacity onPress={() => Actions['aluno'].call()}>
-                <Image style={{width: 100, height: 100, tintColor: '#bc9f0b'}} source={require('./../../assets/img/study.png')}/>
-                <Text style={{color: '#fff', fontSize: 20}}>Aluno</Text>
+                <TouchableOpacity onPress={() => Actions['aluno'].call()} style={styles.button}>
+                <FontAwesome style={styles.button_icon} >{Icons.graduationCap}</FontAwesome>
+                <Text style={styles.button_text}>Aluno</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 90}} >{Icons.check}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Cadastrar</Text>
+              <TouchableOpacity onPress={() => Actions['motorista'].call()} style={styles.button}>
+                <FontAwesome style={styles.button_icon} >{Icons.idBadge}</FontAwesome>
+                <Text style={styles.button_text}>Motorista</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.box_button}>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 90}} >{Icons.check}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Cadastrar</Text>
+            <TouchableOpacity onPress={() => Actions['onibus'].call()} style={styles.button}>
+                <FontAwesome style={styles.button_icon} >{Icons.bus}</FontAwesome>
+                <Text style={styles.button_text}>Ônibus</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 90}} >{Icons.check}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Cadastrar</Text>
+              <TouchableOpacity style={styles.button}>
+                <FontAwesome style={styles.button_icon} >{Icons.mapO}</FontAwesome>
+                <Text style={styles.button_text}>Rotas</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.box_button}>
+            <TouchableOpacity onPress={() => Actions['menu'].call()} style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.arrowLeft}</FontAwesome>
+                <Text style={styles.button_text}>Voltar</Text>
               </TouchableOpacity>
             </View>
 
@@ -55,8 +62,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
   },
+
+  title:{
+    fontSize : 48,
+    color: '#fff',
+    justifyContent: 'center'
+  }, 
   logo: {
     width: 100,
     height: 100
@@ -68,9 +81,36 @@ const styles = StyleSheet.create({
     backgroundColor: '#0F0E0F',
     width: Dimensions.get('window').width,
     padding: '5%',
-  }
-});
+    margin: 10,
+    justifyContent: "center"
+  },
 
+  button: {
+    width: "50%",
+    //backgroundColor: "#fff"
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  button_icon: {
+    color: '#bc9f0b',
+    fontSize: 70,
+    textAlign: "center"
+  },
+
+  button_text: {
+    color: '#fff',
+    fontSize: 20
+  },
+
+  button_return: {
+    color: '#bc9f0b',
+    fontSize: 48,
+    textAlign: "center",
+    textAlign: "left",
+    padding: 10
+  },
+});
 
 function mapStateToProps (state) {
   return {

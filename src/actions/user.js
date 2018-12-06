@@ -33,7 +33,6 @@ export const loginUser = (email, pass) => async (dispatch, getState) => {
     }
     dispatch(loginFinished(response._user));
   } catch (error) {
-    console.log(error);
     dispatch(loginError(error));
   }
 };

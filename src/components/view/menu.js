@@ -16,37 +16,37 @@ class Menu extends Component {
     return (
       <Container style={styles.container}>
         <View style={{flex: 1, flexDirection: 'column'}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-              <Text style={{color: '#fff'}} >BuSchool</Text>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={styles.title} >BuSchool</Text>
               <Image style={styles.logo} source={require('./../../assets/img/bus.png')}/>
             </View>
             
             <View style={styles.box_button}>
-              <TouchableOpacity onPress={() => Actions['cadastro'].call()}>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 70}} >{Icons.check}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Cadastrar</Text>
+              <TouchableOpacity onPress={() => Actions['cadastro'].call()} style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.plus}</FontAwesome>
+                <Text style={styles.button_text}>Cadastrar</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 70}} >{Icons.mapMarker}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Mapas</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.box_button}>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 70}} >{Icons.road}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Rotas</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 70}} >{Icons.check}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Cadastrar</Text>
+              <TouchableOpacity style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.mapMarker}</FontAwesome>
+                <Text style={styles.button_text}>Mapas</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.box_button}>
-              <TouchableOpacity>
-                <FontAwesome style={{color: '#bc9f0b', fontSize: 70}} >{Icons.flag}</FontAwesome>
-                <Text style={{color: '#fff', fontSize: 20}}>Ocorrências</Text>
+              <TouchableOpacity style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.road}</FontAwesome>
+                <Text style={styles.button_text}>Rotas</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.areaChart}</FontAwesome>
+                <Text style={styles.button_text}>Relatórios</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.box_button}>
+              <TouchableOpacity style={styles.button}>
+                <FontAwesome style={styles.button_icon}>{Icons.bullhorn}</FontAwesome>
+                <Text style={styles.button_text}>Ocorrências</Text>
               </TouchableOpacity>
             </View>
         </View>
@@ -54,6 +54,7 @@ class Menu extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -63,6 +64,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     width: Dimensions.get('window').width,
   },
+
+  title:{
+    fontSize : 48,
+    color: '#fff',
+    justifyContent: 'center'
+  }, 
   logo: {
     width: 100,
     height: 100
@@ -74,9 +81,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#0F0E0F',
     width: Dimensions.get('window').width,
     padding: '5%',
-    margin: 5
+    margin: 10,
+    justifyContent: "center"
+  },
+
+  button: {
+    width: "50%",
+    //backgroundColor: "#fff"
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  button_icon: {
+    color: '#bc9f0b',
+    fontSize: 70,
+    textAlign: "center"
+  },
+
+  button_text: {
+    color: '#fff',
+    fontSize: 20
   }
 });
+
 
 
 function mapStateToProps (state) {
