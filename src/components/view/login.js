@@ -2,13 +2,11 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button } from 'native-base';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/user';
 import { Actions } from 'react-native-router-flux';
 
 class Login extends Component {
 
   componentWillMount() {
-    this.props.loginUser();
   }
 
   render() {
@@ -90,4 +88,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, {  })(Login);

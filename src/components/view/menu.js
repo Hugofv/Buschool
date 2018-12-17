@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Container } from 'native-base';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/user';
 import { Actions } from 'react-native-router-flux';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 class Menu extends Component {
 
   componentWillMount() {
-    this.props.loginUser();
   }
 
   render() {
@@ -112,4 +110,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, { loginUser })(Menu);
+export default connect(mapStateToProps, {  })(Menu);
