@@ -8,7 +8,6 @@ export const fetchAlunos = () => async (dispatch) => {
         .database()
         .ref('/pessoas')
         .once('value', snap => {
-            var alunos = snap.val();
             var alunoArr = [];
             snap.forEach(snapChild => {
               var item = snapChild.val();
@@ -17,7 +16,6 @@ export const fetchAlunos = () => async (dispatch) => {
               alunoArr.push(item);
             });
 
-            console.log(alunoArr);
             dispatch(fetchAlunoFinished(alunoArr));
         })
     } catch (error) {
@@ -27,10 +25,22 @@ export const fetchAlunos = () => async (dispatch) => {
 
 export const addAluno = (aluno) => async (dispatch) => {
   try{
-    await firebase
-      .database()
-      .ref('/pessoas')
-      .set(aluno)
+    if(aluno.id != '') {
+      await firebase
+        .database()
+        .ref('/pessoas')
+        .push(aluno)
+    } else {
+      var item = aluno;
+      delete item.id
+
+      await firebase
+        .database()
+        .ref('/pessoas' + aluno.id)
+        .set(item)
+    }
+
+      fetchAlunos();
   } catch (error) {
     console.log(error)
   }

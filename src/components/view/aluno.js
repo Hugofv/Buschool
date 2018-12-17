@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Button, List, ListItem } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
 import { connect } from 'react-redux';
-import { fetchAlunos } from '../../actions/aluno';
+import { fetchAlunos, addAluno } from '../../actions/aluno';
 import { Actions } from 'react-native-router-flux';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 class Aluno extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      form: false
+    }
+  }
   componentDidMount() {
     this.props.fetchAlunos();
   }
@@ -15,7 +22,17 @@ class Aluno extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <ListAluno alunos={this.props.aluno} />
+        {
+          this.state.form
+            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} addAluno={this.props.addAluno}/>
+            : <View>
+              <Button style={{ backgroundColor: '#bc9f0b' }} onPress={() => this.setState({form: !this.state.form})}>
+                <FontAwesome style={{ color: '#fff' }}>{Icons.plus}</FontAwesome>
+                <Text style={{ color: '#fff' }}>Novo</Text>
+              </Button>
+              <ListAluno alunos={this.props.aluno} />
+            </View>
+        }
       </Container>
     );
   }
@@ -25,6 +42,7 @@ class FormAluno extends Component {
   constructor() {
     super();
     this.state = {
+      id: '',
       nome: '',
       cpf: '',
       rg: '',
@@ -37,11 +55,31 @@ class FormAluno extends Component {
     }
   }
 
+  submit() {
+    console.log(this.state);
+    var aluno = {
+      id: this.state.id,
+      nome: this.state.nome,
+      cpf: this.state.cpf,
+      rg: this.state.rg,
+      dataNascimento: this.state.dataNascimento,
+      nomeResponsavel: this.state.nomeResponsavel,
+      telefoneResponsavel: this.state.telefoneResponsavel,
+      escola: this.state.escola,
+      endereco: this.state.endereco,
+      observacoes: this.state.observacoes
+    }
+    console.log(aluno);
+    this.props.addAluno(aluno).then(() => {
+      console.log('aqui')
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={() => Actions['cadastro'].call()}>
+          <TouchableOpacity onPress={this.props.closeForm}>
             <FontAwesome style={styles.button_return}>{Icons.angleLeft}</FontAwesome>
           </TouchableOpacity>
 
@@ -50,33 +88,33 @@ class FormAluno extends Component {
         </View>
         <Form style={styles.formuario}>
           <Item>
-            <Input onChangeText={va} placeholder="Nome" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({nome: value})} placeholder="Nome" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="CPF" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({cpf: value})} placeholder="CPF" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="RG" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({rg: value})} placeholder="RG" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({dataNascimento: value})} type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="Nome Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({nomeResponsavel: value})} placeholder="Nome Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="Telefone Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({telefoneResponsavel: value})} placeholder="Telefone Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="Escola" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({escola: value})} placeholder="Escola" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="Endereço/Região" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({endereco: value})} placeholder="Endereço/Região" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input placeholder="Observações" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({observacoes: value})} placeholder="Observações" style={{ color: '#fff' }} />
           </Item>
-          <Button last onPress={() => Actions['cadastro'].call()} style={styles.button}>
+          <Button last onPress={this.submit} style={styles.button}>
             <Text style={styles.button_text}>Salvar</Text>
           </Button>
         </Form>
@@ -96,13 +134,19 @@ class ListAluno extends Component {
     return (
       <List>
         <ListItem itemHeader first>
-          <Text style={{color: '#fff'}}>Alunos</Text>
+          <Text style={{ color: '#fff' }}>Alunos</Text>
         </ListItem>
         {
           this.props.alunos.map(e => {
-            return <ListItem>
-                    <Text style={{color: '#fff'}}>{e.nome}</Text>
-                  </ListItem>
+            return <ListItem icon>
+              <Left>
+                <Text style={{ color: '#fff' }}>{e.nome}</Text>
+              </Left>
+              <Right>
+                <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
+                <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
+              </Right>
+            </ListItem>
           })
         }
       </List>
@@ -163,7 +207,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     padding: 10
   },
-
 });
 
 
@@ -174,4 +217,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAlunos })(Aluno);
+export default connect(mapStateToProps, { fetchAlunos, addAluno })(Aluno);
