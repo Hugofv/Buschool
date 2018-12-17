@@ -24,7 +24,7 @@ class Aluno extends Component {
       <Container style={styles.container}>
         {
           this.state.form
-            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} addAluno={this.props.addAluno}/>
+            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} aluno={this.props.aluno} addAluno={this.props.addAluno}/>
             : <View>
               <Button style={{ backgroundColor: '#bc9f0b' }} onPress={() => this.setState({form: !this.state.form})}>
                 <FontAwesome style={{ color: '#fff' }}>{Icons.plus}</FontAwesome>
@@ -53,10 +53,19 @@ class FormAluno extends Component {
       endereco: '',
       observacoes: ''
     }
+    this.submit = this.submit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.aluno);
+    console.log('aqui')
+  }
+
+  componentDidMount() {
+    console.log(this.props)
   }
 
   submit() {
-    console.log(this.state);
     var aluno = {
       id: this.state.id,
       nome: this.state.nome,
@@ -71,7 +80,7 @@ class FormAluno extends Component {
     }
     console.log(aluno);
     this.props.addAluno(aluno).then(() => {
-      console.log('aqui')
+      this.props.closeForm();
     })
   }
 
