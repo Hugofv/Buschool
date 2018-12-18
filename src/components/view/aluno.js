@@ -12,9 +12,11 @@ class Aluno extends Component {
     super(props);
 
     this.state = {
-      form: false
+      form: false,
+      aluno: {},
     }
   }
+
   componentDidMount() {
     this.props.fetchAlunos();
   }
@@ -24,13 +26,13 @@ class Aluno extends Component {
       <Container style={styles.container}>
         {
           this.state.form
-            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} aluno={this.props.aluno} addAluno={this.props.addAluno}/>
+            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} aluno={this.state.aluno} addAluno={this.props.addAluno}/>
             : <View>
               <Button style={{ backgroundColor: '#bc9f0b' }} onPress={() => this.setState({form: !this.state.form})}>
                 <FontAwesome style={{ color: '#fff' }}>{Icons.plus}</FontAwesome>
                 <Text style={{ color: '#fff' }}>Novo</Text>
               </Button>
-              <ListAluno alunos={this.props.aluno} />
+              <ListAluno toggleForm={() => this.setState({form: !this.state.form})} setAluno={(aluno) => this.setState({aluno: aluno})} alunos={this.props.aluno} />
             </View>
         }
       </Container>
@@ -134,8 +136,16 @@ class FormAluno extends Component {
 
 class ListAluno extends Component {
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
+  constructor(props) {
+    super(props);
+
+    this.updateAluno = this.updateAluno.bind(this);
+  }
+
+  updateAluno(aluno) {
+    this.props.setAluno(aluno);
+    this.props.toggleForm();
+    console.log(aluno);
   }
 
   render() {
@@ -152,7 +162,9 @@ class ListAluno extends Component {
                 <Text style={{ color: '#fff' }}>{e.nome}</Text>
               </Left>
               <Right>
-                <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
+                <TouchableOpacity onPress={() => this.updateAluno(e)}>
+                  <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
+                </TouchableOpacity>
                 <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
               </Right>
             </ListItem>

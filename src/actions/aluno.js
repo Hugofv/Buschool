@@ -2,25 +2,25 @@ import firebase from 'react-native-firebase';
 
 import types from './types';
 
-export const fetchAlunos = () => async (dispatch) => {
-    try {      
-      await firebase
-        .database()
-        .ref('/pessoas')
-        .once('value', snap => {
-            var alunoArr = [];
-            snap.forEach(snapChild => {
-              var item = snapChild.val();
-              item.key = snapChild.key;
+export const fetchAlunos = () => (dispatch) => {
 
-              alunoArr.push(item);
-            });
+  console.log('aqui')
+    firebase
+      .database()
+      .ref('/pessoas')
+      .once('value')
+      .then(snap => {
+        console.log(snap)
+        var alunoArr = [];
+        snap.forEach(snapChild => {
+          var item = snapChild.val();
+          item.key = snapChild.key;
 
-            dispatch(fetchAlunoFinished(alunoArr));
+          alunoArr.push(item);
         })
-    } catch (error) {
-      console.log(error);
-    }
+
+          dispatch(fetchAlunoFinished(alunoArr));
+      });
   };
 
 export const addAluno = (aluno) => async (dispatch) => {
