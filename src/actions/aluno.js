@@ -2,42 +2,46 @@ import firebase from 'react-native-firebase';
 
 import types from './types';
 
-export const fetchAlunos = () => (dispatch) => {
+export const fetchAlunos = () => async (dispatch) => {
 
-  console.log('aqui')
-    firebase
-      .database()
-      .ref('/pessoas')
-      .once('value')
-      .then(snap => {
-        console.log(snap)
-        var alunoArr = [];
-        snap.forEach(snapChild => {
-          var item = snapChild.val();
-          item.key = snapChild.key;
+    try {      
+      await firebase
+        .database()
+        .ref('/pessoas')
+        .once('value')
+        .then(snap => {
+          console.log(snap)
+          var alunoArr = [];
+          snap.forEach(snapChild => {
+            var item = snapChild.val();
+            item.key = snapChild.key;
 
-          alunoArr.push(item);
+            alunoArr.push(item);
+          })
+
+            dispatch(fetchAlunoFinished(alunoArr));
         })
-
-          dispatch(fetchAlunoFinished(alunoArr));
-      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 export const addAluno = (aluno) => async (dispatch) => {
   try{
-    if(aluno.id != '') {
+    console.log(aluno)
+    if(aluno.id == '') {
       await firebase
         .database()
         .ref('/pessoas')
         .push(aluno)
     } else {
-      var item = aluno;
-      delete item.id
+      var id = aluno.id;
+      delete aluno.id
 
       await firebase
         .database()
-        .ref('/pessoas' + aluno.id)
-        .set(item)
+        .ref('/pessoas/' + id)
+        .set(aluno)
     }
 
       fetchAlunos();

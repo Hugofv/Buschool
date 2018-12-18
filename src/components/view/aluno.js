@@ -58,13 +58,19 @@ class FormAluno extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.aluno);
-    console.log('aqui')
-  }
-
   componentDidMount() {
-    console.log(this.props)
+    this.setState({
+      id: this.props.aluno.key,
+      nome: this.props.aluno.nome,
+      cpf: this.props.aluno.cpf,
+      rg: this.props.aluno.rg,
+      dataNascimento: this.props.aluno.dataNascimento,
+      nomeResponsavel: this.props.aluno.nomeResponsavel,
+      telefoneResponsavel: this.props.aluno.telefoneResponsavel,
+      escola: this.props.aluno.escola,
+      endereco: this.props.aluno.endereco,
+      observacoes: this.props.aluno.observacoes
+    });
   }
 
   submit() {
@@ -80,7 +86,6 @@ class FormAluno extends Component {
       endereco: this.state.endereco,
       observacoes: this.state.observacoes
     }
-    console.log(aluno);
     this.props.addAluno(aluno).then(() => {
       this.props.closeForm();
     })
@@ -99,31 +104,31 @@ class FormAluno extends Component {
         </View>
         <Form style={styles.formuario}>
           <Item>
-            <Input onChangeText={(value) => this.setState({nome: value})} placeholder="Nome" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({nome: value})} value={this.state.nome} placeholder="Nome" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({cpf: value})} placeholder="CPF" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({cpf: value})} value={this.state.cpf} placeholder="CPF" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({rg: value})} placeholder="RG" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({rg: value})} value={this.state.rg} placeholder="RG" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({dataNascimento: value})} type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({dataNascimento: value})} value={this.state.dataNascimento} type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({nomeResponsavel: value})} placeholder="Nome Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({nomeResponsavel: value})} value={this.state.nomeResponsavel} placeholder="Nome Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({telefoneResponsavel: value})} placeholder="Telefone Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({telefoneResponsavel: value})} value={this.state.telefoneResponsavel} placeholder="Telefone Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({escola: value})} placeholder="Escola" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({escola: value})} value={this.state.escola} placeholder="Escola" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({endereco: value})} placeholder="Endereço/Região" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({endereco: value})} value={this.state.endereco} placeholder="Endereço/Região" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({observacoes: value})} placeholder="Observações" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({observacoes: value})} value={this.state.observacoes} placeholder="Observações" style={{ color: '#fff' }} />
           </Item>
           <Button last onPress={this.submit} style={styles.button}>
             <Text style={styles.button_text}>Salvar</Text>
@@ -145,7 +150,6 @@ class ListAluno extends Component {
   updateAluno(aluno) {
     this.props.setAluno(aluno);
     this.props.toggleForm();
-    console.log(aluno);
   }
 
   render() {
@@ -157,7 +161,7 @@ class ListAluno extends Component {
         </ListItem>
         {
           this.props.alunos.map(e => {
-            return <ListItem icon>
+            return <ListItem key={e.key} icon>
               <Left>
                 <Text style={{ color: '#fff' }}>{e.nome}</Text>
               </Left>
