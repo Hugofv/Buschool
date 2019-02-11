@@ -13,7 +13,13 @@ export const fetchAlunos = () => (dispatch) => {
       .ref('/alunos')
       .once('value')
       .then(snap => {
-        console.log(snap);
+        console.log(snap.forEach(e => {
+          console.log(e)
+        }));
+
+        snap.forEach(e => {
+          console.log(e)
+        })
        
       })
       .catch(erro => {

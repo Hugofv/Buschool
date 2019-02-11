@@ -17,7 +17,7 @@ class Aluno extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchAlunos();
   }
 
