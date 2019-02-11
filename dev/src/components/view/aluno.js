@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { fetchAlunos, addAluno } from '../../actions/aluno';
-import { Actions } from 'react-native-router-flux';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { Container, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
+
 
 class Aluno extends Component {
 
@@ -17,7 +17,7 @@ class Aluno extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchAlunos();
   }
 
@@ -26,14 +26,16 @@ class Aluno extends Component {
       <Container style={styles.container}>
         {
           this.state.form
-            ? <FormAluno closeForm={() => this.setState({form: !this.state.form})} aluno={this.state.aluno} addAluno={this.props.addAluno}/>
-            : <View>
-              <Button style={{ backgroundColor: '#bc9f0b' }} onPress={() => this.setState({form: !this.state.form})}>
-                <FontAwesome style={{ color: '#fff' }}>{Icons.plus}</FontAwesome>
-                <Text style={{ color: '#fff' }}>Novo</Text>
-              </Button>
-              <ListAluno toggleForm={() => this.setState({form: !this.state.form})} setAluno={(aluno) => this.setState({aluno: aluno})} alunos={this.props.aluno} />
-            </View>
+            ? <FormAluno closeForm={() => this.setState({ form: !this.state.form })} aluno={this.state.aluno} addAluno={this.props.addAluno} />
+            : <Container style={styles.container}>
+              <View style={{ flex: 1, flexDirection: 'column', width: '100%' }}>
+                <Button style={{ backgroundColor: '#bc9f0b', width: '98%', margin: 5, justifyContent: 'flex-start'}} onPress={() => this.setState({ form: !this.state.form })}>
+                  <FontAwesome style={{ color: '#fff', marginRight: 10, marginLeft: 10 }}>{Icons.plus}</FontAwesome>
+                  <Text style={{ color: '#fff' }}>Novo</Text>
+                </Button>
+                <ListAluno toggleForm={() => this.setState({ form: !this.state.form })} setAluno={(aluno) => this.setState({ aluno: aluno })} alunos={this.props.aluno} />
+              </View>
+            </Container>
         }
       </Container>
     );
@@ -104,31 +106,31 @@ class FormAluno extends Component {
         </View>
         <Form style={styles.formuario}>
           <Item>
-            <Input onChangeText={(value) => this.setState({nome: value})} value={this.state.nome} placeholder="Nome" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ nome: value })} value={this.state.nome} placeholder="Nome" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({cpf: value})} value={this.state.cpf} placeholder="CPF" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ cpf: value })} value={this.state.cpf} placeholder="CPF" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({rg: value})} value={this.state.rg} placeholder="RG" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ rg: value })} value={this.state.rg} placeholder="RG" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({dataNascimento: value})} value={this.state.dataNascimento} type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ dataNascimento: value })} value={this.state.dataNascimento} type="date" placeholder="Data de Nascimento" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({nomeResponsavel: value})} value={this.state.nomeResponsavel} placeholder="Nome Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ nomeResponsavel: value })} value={this.state.nomeResponsavel} placeholder="Nome Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({telefoneResponsavel: value})} value={this.state.telefoneResponsavel} placeholder="Telefone Responsável" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ telefoneResponsavel: value })} value={this.state.telefoneResponsavel} placeholder="Telefone Responsável" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({escola: value})} value={this.state.escola} placeholder="Escola" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ escola: value })} value={this.state.escola} placeholder="Escola" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({endereco: value})} value={this.state.endereco} placeholder="Endereço/Região" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ endereco: value })} value={this.state.endereco} placeholder="Endereço/Região" style={{ color: '#fff' }} />
           </Item>
           <Item>
-            <Input onChangeText={(value) => this.setState({observacoes: value})} value={this.state.observacoes} placeholder="Observações" style={{ color: '#fff' }} />
+            <Input onChangeText={(value) => this.setState({ observacoes: value })} value={this.state.observacoes} placeholder="Observações" style={{ color: '#fff' }} />
           </Item>
           <Button last onPress={this.submit} style={styles.button}>
             <Text style={styles.button_text}>Salvar</Text>
@@ -153,28 +155,31 @@ class ListAluno extends Component {
   }
 
   render() {
-    console.log(this.props.alunos)
     return (
-      <List>
-        <ListItem itemHeader first>
-          <Text style={{ color: '#fff' }}>Alunos</Text>
-        </ListItem>
-        {
-          this.props.alunos.map(e => {
-            return <ListItem key={e.key} icon>
-              <Left>
-                <Text style={{ color: '#fff' }}>{e.nome}</Text>
-              </Left>
-              <Right>
-                <TouchableOpacity onPress={() => this.updateAluno(e)}>
-                  <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
-                </TouchableOpacity>
-                <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
-              </Right>
+      <Container style={styles.container}>
+        <View style={{ flex: 1, flexDirection: 'column' }}>
+          <List>
+            <ListItem itemHeader first>
+              <Text style={{ color: '#fff' }}>Alunos</Text>
             </ListItem>
-          })
-        }
-      </List>
+            {
+              this.props.alunos.map(e => {
+                return <ListItem key={e.key} icon>
+                  <Left>
+                    <Text style={{ color: '#fff' }}>{e.nome}</Text>
+                  </Left>
+                  <Right>
+                    <TouchableOpacity onPress={() => this.updateAluno(e)}>
+                      <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
+                    </TouchableOpacity>
+                    <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
+                  </Right>
+                </ListItem>
+              })
+            }
+          </List>
+        </View>
+      </Container>
     )
   }
 }
@@ -187,24 +192,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     width: Dimensions.get('window').width
   },
-  logo: {
-    width: 100,
-    height: 100
-  },
   box_button: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#0F0E0F',
-    width: Dimensions.get('window').width,
     padding: '5%',
   },
-
+  title: {
+    fontSize: 48,
+    color: '#fff',
+    justifyContent: 'center'
+  },
+  logo: {
+    width: 100,
+    height: 100
+  },
   button: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 5,
+    marginTop: 30,
     backgroundColor: '#bc9f0b',
   },
 
