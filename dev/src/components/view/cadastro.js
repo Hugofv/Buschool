@@ -4,10 +4,34 @@ import { Container, Header, Content, Form, Item, Input, Button } from 'native-ba
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import firebase from 'firebase';
 
 class Cadastro extends Component {
 
   componentWillMount() {
+    const config = {
+      apiKey: "AIzaSyCCFQpacvIBdJZL9jybturxFarnwHZLtXw",
+      authDomain: "buschool-a0b71.firebaseapp.com",
+      databaseURL: "https://buschool-a0b71.firebaseio.com",
+      projectId: "buschool-a0b71",
+      storageBucket: "buschool-a0b71.appspot.com",
+      messagingSenderId: "936086441417"
+    }
+
+    if(!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+
+    firebase.database().ref('alunos').set({
+      nome: 'teste',
+      age: 21
+    })
+    .then(() => {
+      console.log('inserted')
+    })
+    .catch(erro => {
+      console.log(erro);
+    })
   }
 
   render() {

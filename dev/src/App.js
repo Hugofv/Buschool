@@ -12,6 +12,10 @@ import Aluno from './components/view/aluno';
 import Motorista from './components/view/motorista';
 import Onibus from './components/view/onibus';
 
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['warning: isMounted(...) is deprecated', 'Module RCTImageLoader', 'Remote debugger', 'Setting a timer'])
+
 const store = configureStore();
 const App = () => {
   return (

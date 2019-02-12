@@ -5,7 +5,6 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Container, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
 
-
 class Aluno extends Component {
 
   constructor(props) {
@@ -77,16 +76,16 @@ class FormAluno extends Component {
 
   submit() {
     var aluno = {
-      id: this.state.id,
-      nome: this.state.nome,
-      cpf: this.state.cpf,
-      rg: this.state.rg,
-      dataNascimento: this.state.dataNascimento,
-      nomeResponsavel: this.state.nomeResponsavel,
-      telefoneResponsavel: this.state.telefoneResponsavel,
-      escola: this.state.escola,
-      endereco: this.state.endereco,
-      observacoes: this.state.observacoes
+      id: this.state.id || '',
+      nome: this.state.nome || '',
+      cpf: this.state.cpf || '',
+      rg: this.state.rg || '',
+      dataNascimento: this.state.dataNascimento || '',
+      nomeResponsavel: this.state.nomeResponsavel || '',
+      telefoneResponsavel: this.state.telefoneResponsavel || '',
+      escola: this.state.escola || '',
+      endereco: this.state.endereco || '',
+      observacoes: this.state.observacoes || ''
     }
     this.props.addAluno(aluno).then(() => {
       this.props.closeForm();
