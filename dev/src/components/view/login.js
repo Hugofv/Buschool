@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#303030',
     width: Dimensions.get('window').width
   },
   logo: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
 
   formuario:{
-    backgroundColor:'#0F0E0F',
+    backgroundColor:'#424242',
     width: Dimensions.get('window').width,
     marginBottom: 100,
     padding: 10,
