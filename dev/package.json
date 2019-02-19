@@ -4,8 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
+    "test": "jest --watch",
     "react-devtools": "react-devtools"
+  },
+  "jest": {
+    "preset": "react-native"
   },
   "dependencies": {
     "@expo/vector-icons": "^9.0.0",
@@ -31,11 +34,10 @@
   },
   "devDependencies": {
     "babel-jest": "24.1.0",
+    "babel-preset-env": "^1.7.0",
+    "firebase-mock": "^2.2.10",
     "jest": "24.1.0",
     "react-devtools": "^3.3.4",
-    "react-test-renderer": "16.8.1"
-  },
-  "jest": {
-    "preset": "react-native"
+    "react-test-renderer": "^16.8.1"
   }
 }

@@ -1,4 +1,3 @@
-import { showMessage, hideMessage } from "react-native-flash-message";
 import { firebaseDatabase } from '../config/db';
 
 import types from './types';
