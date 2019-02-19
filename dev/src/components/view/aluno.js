@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { fetchAlunos, addAluno } from '../../actions/aluno';
+import { fetchAlunos, addAluno, deleteAluno } from '../../actions/aluno';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Container, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
@@ -153,25 +153,35 @@ class ListAluno extends Component {
     this.props.toggleForm();
   }
 
+  deleteAluno(aluno) {
+    this.props.deleteAluno(aluno);
+  }
+
+
+
   render() {
+    console.log(this.props)
     return (
       <Container style={styles.container}>
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <List>
-            <ListItem itemHeader first>
-              <Text style={{ color: '#fff' }}>Alunos</Text>
+            <ListItem itemHeader first style={{alignItems: "center", justifyContent: "center"}}>
+              <Text style={{ color: '#fff', fontSize: 25}}>Alunos</Text>
             </ListItem>
             {
               this.props.alunos.map(e => {
                 return <ListItem key={e.key} icon>
                   <Left>
-                    <Text style={{ color: '#fff' }}>{e.nome}</Text>
+                    <Text style={{ color: '#fff', marginRight: 5, fontSize: 18 }}>{e.nome}</Text>
                   </Left>
                   <Right>
-                    <TouchableOpacity onPress={() => this.updateAluno(e)}>
-                      <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
+                    <TouchableOpacity style={{marginRight: 15}} onPress={() => this.updateAluno(e)}>
+                      <FontAwesome style={{ color: '#fff', fontSize: 30}}>{Icons.pencil}</FontAwesome>
                     </TouchableOpacity>
-                    <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
+                    
+                    <TouchableOpacity onPress = {()=> this.deleteAluno(e)}>
+                      <FontAwesome style={{ color: '#fff', fontSize: 30 }}>{Icons.timesCircle}</FontAwesome>
+                    </TouchableOpacity>
                   </Right>
                 </ListItem>
               })
@@ -250,4 +260,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAlunos, addAluno })(Aluno);
+export default connect(mapStateToProps, { fetchAlunos, addAluno, deleteAluno })(Aluno);
