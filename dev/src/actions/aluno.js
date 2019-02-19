@@ -40,10 +40,33 @@ export const addAluno = (aluno) => async (dispatch) => {
     console.log(erro);
   }
 
-    fetchAlunos();
+   fetchAlunos();
 }
+
+
+export const deleteAluno = (aluno) => async (dispatch) => {
+  try{
+    if (aluno && aluno.key) {
+
+      await firebaseDatabase
+        .ref('/alunos').child(aluno.key)
+        .remove()
+    } else {
+      console.log("Não foi possível excluir o aluno")  
+    }
+  } catch (erro) {
+    console.log(erro);
+  }
+
+  fetchAlunos();
+}
+
+
+
 
 const fetchAlunoFinished = alunos => ({
   type: types.FETCH_ALUNOS,
   alunos,
 });
+
+

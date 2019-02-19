@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { fetchAlunos, addAluno } from '../../actions/aluno';
+import { fetchAlunos, addAluno, deleteAluno } from '../../actions/aluno';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Container, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
@@ -153,7 +153,14 @@ class ListAluno extends Component {
     this.props.toggleForm();
   }
 
+  deleteAluno(aluno) {
+    this.props.deleteAluno(aluno);
+  }
+
+
+
   render() {
+    console.log(this.props)
     return (
       <Container style={styles.container}>
         <View style={{ flex: 1, flexDirection: 'column', width: '98%' }}>
@@ -171,7 +178,10 @@ class ListAluno extends Component {
                     <TouchableOpacity onPress={() => this.updateAluno(e)}>
                       <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
                     </TouchableOpacity>
-                    <FontAwesome style={{ color: '#fff' }}>{Icons.timesCircle}</FontAwesome>
+
+                    <TouchableOpacity onPress = {()=> this.deleteAluno(e)}>
+                      <FontAwesome style={{ color: '#fff', fontSize: 30 }}>{Icons.timesCircle}</FontAwesome>
+                    </TouchableOpacity>
                   </Right>
                 </ListItem>
               })
@@ -250,4 +260,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchAlunos, addAluno })(Aluno);
+export default connect(mapStateToProps, { fetchAlunos, addAluno, deleteAluno })(Aluno);
