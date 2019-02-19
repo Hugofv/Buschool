@@ -5,7 +5,7 @@ import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Container, Form, Item, Input, Button, List, ListItem, Right, Left } from 'native-base';
 
-class Aluno extends Component {
+export class Aluno extends Component {
 
   constructor(props) {
     super(props);

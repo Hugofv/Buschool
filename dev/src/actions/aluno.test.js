@@ -5,11 +5,13 @@ import { addAluno } from './aluno';
 jest.mock('firebase/app');
 jest.mock('firebase/database');
 
-test("test", () => {
-    jest.mock('firebase');
-    firebase.initializeApp = () => {
-            throw "Should not be hit in test"
-    };
-    
-    addAluno();
-});
+describe("Action Aluno", () => {
+    test("test", () => {
+        jest.mock('firebase');
+        firebase.initializeApp = () => {
+                throw "Should not be hit in test"
+        };
+        
+        addAluno();
+    });
+})

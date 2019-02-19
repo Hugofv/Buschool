@@ -1,18 +1,37 @@
-import React from 'react';
-import Aluno from './aluno';
-import firebase from 'firebase';
-import renderer from 'react-test-renderer';
-import { Icons } from 'react-native-fontawesome';
+import React from "react";
+import Aluno from "./aluno";
+import configureStore from "redux-mock-store";
+import { shallow, mount } from 'enzyme';
+import { Container } from "native-base";
 
-it('Teste da requisição de aluno', () => {
-    
-    jest.mock('firebase');
-    jest.mock('react-native-fontawesome', () => Icons);
+const middlewares = [];
+const mockStore = configureStore(middlewares);
 
-    firebase.initializeApp = () => {
-        throw "Should not be hit in test"
-    };
+const initialState = {
+  preferences: {
+    save_photos_locally: false,
+    open_to_camera: false
+  }
+};
 
-    const tree = renderer.create(<Aluno />).toJSON()
-    expect(tree).toMatchSnapshot()
-})
+function setup() {
+  const props = {
+    fetchAlunos: jest.fn()
+  };
+  const enzymeWrapper = shallow(
+    <Aluno {...props}/>,
+    { context: { store: mockStore(initialState) } }
+  );
+
+  return {
+    props,
+    enzymeWrapper
+  };
+}
+
+describe("<Aluno/>", () => {
+    it("Renderizar componentes", () => {
+        const { enzymeWrapper } = setup();
+        expect(enzymeWrapper.contains(<Container />)).toMatchSnapshot();
+    });
+});
