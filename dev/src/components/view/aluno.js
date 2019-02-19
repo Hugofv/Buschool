@@ -29,7 +29,7 @@ class Aluno extends Component {
             : <Container style={styles.container}>
               <View style={{ flex: 1, flexDirection: 'column', width: '100%' }}>
                 <Button style={{ backgroundColor: '#bc9f0b', width: '98%', margin: 5, justifyContent: 'flex-start'}} onPress={() => this.setState({ form: !this.state.form })}>
-                  <FontAwesome style={{ color: '#fff', marginRight: 10, marginLeft: 10 }}>{Icons.plus}</FontAwesome>
+                  <FontAwesome style={{ color: '#fff', marginRight: 10, marginLeft: 10, borderBottomColor: 'transparent' }}>{Icons.plus}</FontAwesome>
                   <Text style={{ color: '#fff' }}>Novo</Text>
                 </Button>
                 <ListAluno toggleForm={() => this.setState({ form: !this.state.form })} setAluno={(aluno) => this.setState({ aluno: aluno })} alunos={this.props.aluno} />
@@ -163,22 +163,22 @@ class ListAluno extends Component {
     console.log(this.props)
     return (
       <Container style={styles.container}>
-        <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={{ flex: 1, flexDirection: 'column', width: '98%' }}>
           <List>
-            <ListItem itemHeader first style={{alignItems: "center", justifyContent: "center"}}>
-              <Text style={{ color: '#fff', fontSize: 25}}>Alunos</Text>
+            <ListItem style={{width: '100%' }} itemHeader first>
+              <Text style={{ color: '#fff', fontSize: 30 }}>Alunos</Text>
             </ListItem>
             {
               this.props.alunos.map(e => {
-                return <ListItem key={e.key} icon>
-                  <Left>
-                    <Text style={{ color: '#fff', marginRight: 5, fontSize: 18 }}>{e.nome}</Text>
+                return <ListItem style={{width: '98%'}} key={e.key} icon>
+                  <Left style={{width: '85%', justifyContent: 'flex-start'}}>
+                    <Text style={{ color: '#fff', textAlign: 'left' }}>{e.nome}</Text>
                   </Left>
-                  <Right>
-                    <TouchableOpacity style={{marginRight: 15}} onPress={() => this.updateAluno(e)}>
-                      <FontAwesome style={{ color: '#fff', fontSize: 30}}>{Icons.pencil}</FontAwesome>
+                  <Right style={{width: '15%', justifyContent: 'space-between'}}>
+                    <TouchableOpacity onPress={() => this.updateAluno(e)}>
+                      <FontAwesome style={{ color: '#fff' }}>{Icons.pencil}</FontAwesome>
                     </TouchableOpacity>
-                    
+
                     <TouchableOpacity onPress = {()=> this.deleteAluno(e)}>
                       <FontAwesome style={{ color: '#fff', fontSize: 30 }}>{Icons.timesCircle}</FontAwesome>
                     </TouchableOpacity>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: '#303030',
     width: Dimensions.get('window').width
   },
   box_button: {

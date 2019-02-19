@@ -6,7 +6,6 @@ import types from './types';
 export const fetchAlunos = () => (dispatch) => {
   var itens = [];
 
-  console.log('aqui')
   firebaseDatabase
     .ref('/alunos')
     .on('value', snap => {
