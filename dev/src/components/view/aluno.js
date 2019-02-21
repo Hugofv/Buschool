@@ -32,7 +32,7 @@ export class Aluno extends Component {
                   <FontAwesome style={{ color: '#fff', marginRight: 10, marginLeft: 10, borderBottomColor: 'transparent' }}>{Icons.plus}</FontAwesome>
                   <Text style={{ color: '#fff' }}>Novo</Text>
                 </Button>
-                <ListAluno toggleForm={() => this.setState({ form: !this.state.form })} setAluno={(aluno) => this.setState({ aluno: aluno })} alunos={this.props.aluno} />
+                <ListAluno toggleForm={() => this.setState({ form: !this.state.form })} deleteAluno={this.props.deleteAluno} setAluno={(aluno) => this.setState({ aluno: aluno })} alunos={this.props.aluno} />
               </View>
             </Container>
         }
@@ -146,6 +146,7 @@ class ListAluno extends Component {
     super(props);
 
     this.updateAluno = this.updateAluno.bind(this);
+    this.deleteAluno = this.deleteAluno.bind(this);
   }
 
   updateAluno(aluno) {
