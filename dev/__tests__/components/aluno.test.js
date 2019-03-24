@@ -1,5 +1,5 @@
 import React from "react";
-import Aluno from "./aluno";
+import Aluno from "./../../src/components/view/aluno";
 import configureStore from "redux-mock-store";
 import { shallow, mount } from 'enzyme';
 import { Container } from "native-base";
@@ -7,12 +7,7 @@ import { Container } from "native-base";
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-const initialState = {
-  preferences: {
-    save_photos_locally: false,
-    open_to_camera: false
-  }
-};
+const initialState = { };
 
 function setup() {
   const props = {
@@ -30,7 +25,7 @@ function setup() {
 }
 
 describe("<Aluno/>", () => {
-    it("Renderizar componentes", () => {
+    it("Renderizar aluno", () => {
         const { enzymeWrapper } = setup();
         expect(enzymeWrapper.contains(<Container />)).toMatchSnapshot();
     });

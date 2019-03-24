@@ -2,13 +2,13 @@ import { firebaseDatabase } from '../config/db';
 
 import types from './types';
 
-export const fetchAlunos = () => (dispatch) => {
+export function fetchAlunos() {
   var itens = [];
 
-  firebaseDatabase
+  return firebaseDatabase
     .ref('/alunos')
     .on('value', snap => {
-      snap.forEach(snapChild => {
+      (snap).forEach(snapChild => {
         var item = snapChild.val();
         item.key = snapChild.key;
 
@@ -16,22 +16,22 @@ export const fetchAlunos = () => (dispatch) => {
       })
 
       dispatch(fetchAlunoFinished(itens));
-    }, erro => console.log(erro))
+    }, erro => dispatch(fetchAlunoError()))
   }
 
 
-export const addAluno = (aluno) => async (dispatch) => {
+export function addAluno(aluno) {
   try{
     if (aluno && !aluno.id) {
 
-      await firebaseDatabase
+      firebaseDatabase
         .ref('/alunos')
         .push(aluno)
     } else {
       var id = aluno.id;
       delete aluno.id
 
-      await firebaseDatabase
+      firebaseDatabase
         .ref()
         .child('/alunos/' + id)
         .set(aluno)
@@ -40,7 +40,7 @@ export const addAluno = (aluno) => async (dispatch) => {
     console.log(erro);
   }
 
-   fetchAlunos();
+  return fetchAlunos();
 }
 
 
@@ -69,4 +69,6 @@ const fetchAlunoFinished = alunos => ({
   alunos,
 });
 
-
+const fetchAlunoError = () => ({
+  type: types.FETCH_ALUNOS_ERROR
+});
